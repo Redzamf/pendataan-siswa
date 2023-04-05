@@ -1,0 +1,16 @@
+{
+  "students": [
+    {
+      "name": "rizki",
+      "school": "smkn juuju",
+      "prodi": "bahasa jepang",
+      "id": 1
+    },
+    {
+      "name": "Komar",
+      "school": "smkn juuju",
+      "prodi": "bahasa arab",
+      "id": 2
+    }
+  ]
+}

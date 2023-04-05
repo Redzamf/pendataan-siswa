@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, tr, th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Aplikasi Pendataan siswa</h3>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    <div>
+        <input id="name" type="text" placeholder="isi nama lengkap disini....">
+        <input id="school" type="text" placeholder="isi nama sekolah disini....">
+        <select id="prodi">
+            <option value="Manejemen informatika">Manejemen informatika</option>
+            <option value="Admininstrasi Bisnis">Admininstrasi Bisnis</option>
+        </select>
+        <button id="button">simpan</button> 
+    </div>
+    <table style="margin-top: 10px">
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Sekolah</th>
+                <th>Program Studi</th>
+            </tr>
+        </thead>
+        <tbody id="result"></tbody>
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+        const getData = async () => {
+            await axios.get(`http://localhost:3000/students`)
+            .then((response) => {
+                let bucket = ``;
+            let students = response.data;
+            if(students.length>0){
+              for (let i = 0; i < students.length; i++) {
+              bucket += `
+              <tr>
+                <th>${i + 1}</th>
+                <th>${students[i].name}</th>
+                <th>${students[i].school}</th>
+                <th>${students[i].prodi}</th>
+              </tr>
+              `}
+            }else{
+              bucket += `
+              <tr>
+                <th colspan="4" style="text-align: center">Data tidak ditemukan</th>
+              </tr>
+            `;
+            }
+            document.getElementById("result").innerHTML = bucket;
+          })
+          .catch((error) => {
+            let bucket = `
+              <tr>
+                <th colspan="4" style="text-align: center">${error.message}</th>
+              </tr>
+            `;
+            document.getElementById("result").innerHTML = bucket;
+          });
+      };
+      getData();
+    </script>
+  </body>
+</html>
